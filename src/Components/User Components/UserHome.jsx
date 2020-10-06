@@ -6,6 +6,9 @@ class UserHome extends Component {
     return (
       <div>
         <h2>Welcome, User!</h2>
+        <nav>
+          <li></li>
+        </nav>
         <MovieIndex sessionToken={this.props.sessionToken} />
       </div>
     );

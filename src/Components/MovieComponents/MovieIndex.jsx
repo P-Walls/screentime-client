@@ -58,48 +58,69 @@ class MovieIndex extends Component {
         <form onSubmit={this.handleSubmit}>
           <h3>Review a Movie</h3>
           <div>
-            <label htmlFor="title">Title: </label>
+            <label htmlFor="title" style={{ margin: "1px" }}>
+              Title:{" "}
+            </label>
             <input
               type="text"
+              value={this.state.title}
               onChange={(e) => this.setState({ title: e.target.value })}
               required
             />
-            <label htmlFor="year">Release Date: </label>
+            <label htmlFor="year" style={{ margin: "1px" }}>
+              Release Date:{" "}
+            </label>
             <input
               type="text"
+              value={this.state.year}
               onChange={(e) => this.setState({ year: e.target.value })}
               required
             />
-            <label htmlFor="director">Directed By: </label>
+            <label htmlFor="director" style={{ margin: "1px" }}>
+              Directed By:{" "}
+            </label>
             <input
               type="text"
+              value={this.state.director}
               onChange={(e) => this.setState({ director: e.target.value })}
               required
             />
-            <label htmlFor="runtime">Runtime: </label>
+            <label htmlFor="runtime" style={{ margin: "1px" }}>
+              Runtime:{" "}
+            </label>
             <input
               type="number"
+              value={this.state.runtime}
               onChange={(e) => this.setState({ runtime: e.target.value })}
             />
-            <label htmlFor="watchlist">Watchlist: </label>
+            <label htmlFor="watchlist" style={{ margin: "1px" }}>
+              Watchlist:{" "}
+            </label>
             <input
               type="checkbox"
+              value="false"
               onChange={(e) => this.setState({ watchlist: e.target.value })}
             />
-            <label htmlFor="userScore">My Score: </label>
+            <label htmlFor="userScore" style={{ margin: "1px" }}>
+              My Score:{" "}
+            </label>
             <input
               type="number"
+              value={this.state.userScore}
               min="0"
               max="10"
               onChange={(e) => this.setState({ userScore: e.target.value })}
             />
-            <label htmlFor="review">My Review: </label>
+            <label htmlFor="review" style={{ margin: "1px" }}>
+              My Review:{" "}
+            </label>
             <textarea
               id="review"
               name="review"
               rows="4"
               cols="50"
-              defaultValue="Write a movie review here."
+              value={this.state.review}
+              placeholder="Write a review here."
               onChange={(e) => this.setState({ review: e.target.value })}
             ></textarea>
           </div>

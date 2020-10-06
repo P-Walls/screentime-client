@@ -11,10 +11,15 @@ class Navbar extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.props.sessionToken !== ""
+  componentWillMount() {
+    localStorage.getItem("token")
       ? console.log(this.props.sessionToken)
       : console.log("No Session Token");
+  }
+
+  componentDidUpdate() {
+    this.props.sessionToken !== ""
+      ? console.log(this.props.sessionToken) : console.log("No Session Token");
   }
 
   render() {
