@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import MovieReviews from "./MovieReviews";
 import "./MovieIndex.css";
 
 class MovieIndex extends Component {
@@ -12,8 +13,23 @@ class MovieIndex extends Component {
       runtime: 0,
       userScore: 0,
       review: "",
+      movieToUpdate: {},
+      updateActive: false,
     };
+    //this.handleSubmit.bind(this);
   }
+
+  editUpdateMovie = (movieReview) => {
+    this.setState({ movieToUpdate: movieReview });
+  };
+
+  updateOn = () => {
+    this.setState({ updateActive: true });
+  };
+
+  updateOff = () => {
+    this.setState({ updateActive: false });
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -49,13 +65,14 @@ class MovieIndex extends Component {
           review: "",
         });
       })
+      .then(() => this.props.fetchReviews(this.props.sessionToken))
       .catch((err) => console.log(err));
   };
 
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
           <h3>Review a Movie</h3>
           <div>
             <label htmlFor="title" style={{ margin: "1px" }}>
@@ -126,6 +143,16 @@ class MovieIndex extends Component {
           </div>
           <button type="submit">Submit</button>
         </form>
+        <MovieReviews
+          movieReviews={this.props.movieReviews}
+          fetchReviews={this.props.fetchReviews}
+          sessionToken={this.props.sessionToken}
+          editUpdateMovie={this.editUpdateMovie}
+          movieToUpdate={this.state.movieToUpdate}
+          updateOn={this.updateOn}
+          updateOff={this.updateOff}
+          updateActive={this.state.updateActive}
+        />
       </div>
     );
   }
