@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import MovieReviews from "./MovieReviews";
-import "./MovieIndex.css";
+import TVReviews from "./TVReviews";
+//import "./TVIndex.css";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -9,24 +9,23 @@ import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 
-class MovieIndex extends Component {
+class TVIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      year: "",
-      director: "",
+      network: "",
+      seasons: 0,
       //watchlist: false,
-      runtime: 0,
       userScore: 0,
       review: "",
-      movieToUpdate: {},
+      TVToUpdate: {},
       updateActive: false,
     };
   }
 
-  editUpdateMovie = (movieReview) => {
-    this.setState({ movieToUpdate: movieReview });
+  editUpdateTV = (tvReview) => {
+    this.setState({ tvToUpdate: tvReview });
   };
 
   updateOn = () => {
@@ -41,7 +40,7 @@ class MovieIndex extends Component {
     e.preventDefault();
     console.log(this.state.title);
 
-    fetch(`http://localhost:3025/movie/review`, {
+    fetch(`http://localhost:3025/tv/review`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -49,10 +48,9 @@ class MovieIndex extends Component {
       }),
       body: JSON.stringify({
         title: this.state.title,
-        year: this.state.year,
-        director: this.state.director,
+        network: this.state.network,
+        seasons: this.state.seasons,
         //watchlist: this.state.watchlist,
-        runtime: this.state.runtime,
         userScore: this.state.userScore,
         review: this.state.review,
       }),
@@ -63,15 +61,14 @@ class MovieIndex extends Component {
         //Come back to clearing the form
         this.setState({
           title: "",
-          year: "",
-          director: "",
+          network: "",
+          seasons: 0,
           //watchlist: false,
-          runtime: 0,
           userScore: 0,
           review: "",
         });
       })
-      .then(() => this.props.fetchMovieReviews(this.props.sessionToken))
+      .then(() => this.props.fetchTVReviews(this.props.sessionToken))
       .catch((err) => console.log(err));
   };
 
@@ -81,7 +78,7 @@ class MovieIndex extends Component {
         <Container maxWidth="lg">
           <Container maxWidth="lg">
             <form onSubmit={(e) => this.handleSubmit(e)}>
-              <h3>Review a Movie</h3>
+              <h3>Review a TV Show</h3>
               <div>
                 <FormGroup row>
                   <TextField
@@ -96,37 +93,25 @@ class MovieIndex extends Component {
                   />
                   <TextField
                     variant="outlined"
-                    label="Release Year"
+                    label="Network"
                     type="text"
                     size="small"
                     style={{ margin: 8 }}
-                    value={this.state.year}
-                    onChange={(e) => this.setState({ year: e.target.value })}
+                    value={this.state.network}
+                    onChange={(e) => this.setState({ network: e.target.value })}
                     required
                   />
                   <TextField
                     variant="outlined"
-                    label="Director"
-                    type="text"
+                    label="Seasons"
+                    type="number"
                     size="small"
                     style={{ margin: 8 }}
-                    value={this.state.director}
+                    value={this.state.seasons}
                     onChange={(e) =>
-                      this.setState({ director: e.target.value })
+                      this.setState({ seasons: e.target.value })
                     }
                     required
-                  />
-                  <TextField
-                    variant="outlined"
-                    label="Runtime"
-                    size="small"
-                    type="number"
-                    style={{ margin: 8 }}
-                    value={this.state.runtime}
-                    // endAdornment={
-                    //   <InputAdornment position="end">Min</InputAdornment>
-                    // }
-                    onChange={(e) => this.setState({ runtime: e.target.value })}
                   />
                 </FormGroup>
                 <FormGroup row>
@@ -186,12 +171,12 @@ class MovieIndex extends Component {
               </div>
             </form>
           </Container>
-          <MovieReviews
-            movieReviews={this.props.movieReviews}
-            fetchMovieReviews={this.props.fetchMovieReviews}
+          <TVReviews
+            tvReviews={this.props.tvReviews}
+            fetchTVReviews={this.props.fetchTVReviews}
             sessionToken={this.props.sessionToken}
-            editUpdateMovie={this.editUpdateMovie}
-            movieToUpdate={this.state.movieToUpdate}
+            editUpdateTV={this.editUpdateTV}
+            tvToUpdate={this.state.TVToUpdate}
             updateOn={this.updateOn}
             updateOff={this.updateOff}
             updateActive={this.state.updateActive}
@@ -202,4 +187,4 @@ class MovieIndex extends Component {
   }
 }
 
-export default MovieIndex;
+export default TVIndex;

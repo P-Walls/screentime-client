@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MovieEdit from "./MovieEdit";
+import TVEdit from "./TVEdit";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -11,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 
-class MovieReviews extends Component {
+class TVReviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,12 +28,12 @@ class MovieReviews extends Component {
     e.preventDefault();
     this.setState({ deleteId: id });
     this.deleteMedia(id);
-    this.props.fetchMovieReviews(this.props.sessionToken);
+    this.props.fetchTVReviews(this.props.sessionToken);
   }
 
   deleteMedia(id) {
     if (id !== "") {
-      let url = `http://localhost:3025/movie/review/${id}`;
+      let url = `http://localhost:3025/tv/review/${id}`;
       fetch(url, {
         method: "DELETE",
         headers: new Headers({
@@ -52,26 +52,25 @@ class MovieReviews extends Component {
     }
   }
 
-  movieMapper = () => {
-    //console.log(props.movieReviews);
-    return this.props.movieReviews.map((movies, index) => {
+  tvMapper = () => {
+    //console.log(props.tvReviews);
+    return this.props.tvReviews.map((tvShows, index) => {
       return (
         <TableRow key={index} hover>
           <TableCell></TableCell>
-          <TableCell>{movies.title}</TableCell>
-          <TableCell>{movies.director}</TableCell>
-          <TableCell>{movies.year}</TableCell>
-          <TableCell>{movies.runtime}</TableCell>
-          {/* <TableCell>{movies.watchlist}</TableCell> */}
-          <TableCell>{movies.userScore}</TableCell>
-          <TableCell>{movies.review}</TableCell>
-          {/* <TableCell>{movies.id}</TableCell> */}
+          <TableCell>{tvShows.title}</TableCell>
+          <TableCell>{tvShows.network}</TableCell>
+          <TableCell>{tvShows.seasons}</TableCell>
+          {/* <TableCell>{tvShows.watchlist}</TableCell> */}
+          <TableCell>{tvShows.userScore}</TableCell>
+          <TableCell>{tvShows.review}</TableCell>
+          {/* <TableCell>{tvShows.id}</TableCell> */}
           <TableCell>
             <ButtonGroup>
               <Button
                 color="primary"
                 onClick={() => {
-                  this.props.editUpdateMovie(movies);
+                  this.props.editUpdateTV(tvShows);
                   this.props.updateOn();
                 }}
               >
@@ -79,7 +78,7 @@ class MovieReviews extends Component {
               </Button>
               <Button
                 color="secondary"
-                onClick={(e) => this.getDeleteId(e, movies.id)}
+                onClick={(e) => this.getDeleteId(e, tvShows.id)}
               >
                 Delete Review
               </Button>
@@ -95,31 +94,30 @@ class MovieReviews extends Component {
       <div>
         <TableContainer component={Paper}>
           <div>
-            <h3>Movie Reviews</h3>
+            <h3>TV Reviews</h3>
           </div>
           <Table aria-label="sticky table">
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
                 <TableCell>Title</TableCell>
-                <TableCell>Director</TableCell>
-                <TableCell>Year</TableCell>
-                <TableCell>Runtime</TableCell>
+                <TableCell>Network</TableCell>
+                <TableCell>Seasons</TableCell>
                 {/* <TableCell>Watchlist</TableCell> */}
                 <TableCell>My Score</TableCell>
                 <TableCell>My Review</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>{this.movieMapper()}</TableBody>
+            <TableBody>{this.tvMapper()}</TableBody>
           </Table>
         </TableContainer>
         {this.props.updateActive ? (
-          <MovieEdit
+          <TVEdit
             updateOn={this.props.updateOn}
-            movieToUpdate={this.props.movieToUpdate}
+            tvToUpdate={this.props.tvToUpdate}
             updateOff={this.props.updateOff}
             sessionToken={this.props.sessionToken}
-            fetchMovieReviews={this.props.fetchMovieReviews}
+            fetchReviews={this.props.fetchReviews}
           />
         ) : (
           <></>
@@ -129,4 +127,4 @@ class MovieReviews extends Component {
   }
 }
 
-export default MovieReviews;
+export default TVReviews;

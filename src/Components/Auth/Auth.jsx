@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import "./Auth.css";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 class Auth extends Component {
   constructor(props) {
@@ -51,7 +54,7 @@ class Auth extends Component {
       <div>
         <label>First Name: </label>
         <br />
-        <input
+        <TextField
           name="firstName"
           type="text"
           required
@@ -61,7 +64,7 @@ class Auth extends Component {
         <br />
         <label>Last Name: </label>
         <br />
-        <input
+        <TextField
           name="lastName"
           type="text"
           required
@@ -109,9 +112,7 @@ class Auth extends Component {
         password: "",
         sessionToken: "",
         passError: (
-          <span
-            style={{ width: "100%", textAlign: "center" }}
-          >
+          <span style={{ width: "100%", textAlign: "center" }}>
             Password must be 7 characters or Longer!
           </span>
         ),
@@ -121,7 +122,7 @@ class Auth extends Component {
 
   render() {
     return (
-      <div>
+      <div className="form-body">
         <form onSubmit={this.handleSubmit}>
           <div>
             <h3>{this.title()}</h3>
@@ -129,22 +130,31 @@ class Auth extends Component {
           {this.signupFields()}
           <label htmlFor="email">Email:</label>
           <br />
-          <input
+          <TextField
             type="text"
             onChange={(e) => this.setState({ email: e.target.value })}
           />
           <br />
           <label htmlFor="password">Password:</label>
           <br />
-          <input
+          <TextField
             type="password"
             onChange={(e) => this.setState({ password: e.target.value })}
           />
-          <br/>
+          <br />
           {this.state.passError}
           <br />
-          <button type="submit">Submit</button>
-          <button onClick={this.loginToggle}>{this.label()}</button>
+          <Button type="submit" color="primary" variant="contained" size="small">
+            Submit
+          </Button>{" "}
+          <Button
+            onClick={this.loginToggle}
+            color="secondary"
+            variant="contained"
+            size="small"
+          >
+            {this.label()}
+          </Button>
         </form>
       </div>
     );

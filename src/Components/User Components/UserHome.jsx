@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import MovieIndex from "../MovieComponents/MovieIndex";
+import TVIndex from "../TVComponents/TVIndex";
 
 class UserHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
       movieReviews: [],
+      tvReviews: [],
     };
     //this.fetchReviews.bind(this);
   }
 
-  fetchReviews = (token) => {
+  fetchMovieReviews = (token) => {
     fetch(`http://localhost:3025/movie/`, {
       method: "GET",
       headers: new Headers({
@@ -25,27 +27,49 @@ class UserHome extends Component {
           movieReviews: reviews,
         });
       });
-  }
+  };
+
+  fetchTVReviews = (token) => {
+    fetch(`http://localhost:3025/tv/`, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: token,
+      }),
+    })
+      .then((res) => res.json())
+      .then((reviews) => {
+        //console.log(reviews)
+        this.setState({
+          tvReviews: reviews,
+        });
+      });
+  };
 
   componentWillMount() {
-    this.fetchReviews(this.props.sessionToken);
+    this.fetchMovieReviews(this.props.sessionToken);
+    this.fetchTVReviews(this.props.sessionToken);
   }
 
-  componentDidUpdate() {
-    console.log(this.state.movieReviews);
-  }
+  // componentDidUpdate() {
+  //   console.log(this.state.movieReviews);
+  //   console.log(this.state.tvReviews);
+  // }
 
   render() {
     return (
       <div>
-        <h2>Welcome, User!</h2>
-        <nav>
-          <li></li>
-        </nav>
+        <h2>Welcome!</h2>
         <MovieIndex
           sessionToken={this.props.sessionToken}
           movieReviews={this.state.movieReviews}
-          fetchReviews={this.fetchReviews}
+          fetchMovieReviews={this.fetchMovieReviews}
+        />
+
+        <TVIndex
+          sessionToken={this.props.sessionToken}
+          tvReviews={this.state.tvReviews}
+          fetchTVReviews={this.fetchTVReviews}
         />
       </div>
     );

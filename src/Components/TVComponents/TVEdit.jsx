@@ -4,13 +4,13 @@ import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
 
-class MovieEdit extends Component {
+class TVEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
       //editWatchlist: this.props.movieToUpdate.watchlist,
-      editUserScore: this.props.movieToUpdate.userScore,
-      editReview: this.props.movieToUpdate.review,
+      editUserScore: this.props.tvToUpdate.userScore,
+      editReview: this.props.tvToUpdate.review,
     };
   }
 
@@ -18,9 +18,9 @@ class MovieEdit extends Component {
     this.props.updateOff();
   };
 
-  movieUpdate = (e) => {
+  tvUpdate = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3025/movie/review/${this.props.movieToUpdate.id}`, {
+    fetch(`http://localhost:3025/tv/review/${this.props.tvToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
         //watchlist: this.state.editWatchlist,
@@ -32,7 +32,7 @@ class MovieEdit extends Component {
         Authorization: this.props.sessionToken,
       }),
     }).then((res) => {
-      this.props.fetchMovieReviews(this.props.sessionToken);
+      this.props.fetchReviews(this.props.sessionToken);
       console.log(res);
       this.props.updateOff();
     });
@@ -43,9 +43,9 @@ class MovieEdit extends Component {
       <div>
         <Container>
           <div>
-            <h3>{this.props.movieToUpdate.title}</h3>
+            <h3>{this.props.tvToUpdate.title}</h3>
           </div>
-          <form onSubmit={this.movieUpdate}>
+          <form onSubmit={this.tvUpdate}>
             {/* <label htmlFor="watchlist">Watchlist: </label>
           <input
             type="checkbox"
@@ -86,4 +86,4 @@ class MovieEdit extends Component {
   }
 }
 
-export default MovieEdit;
+export default TVEdit;

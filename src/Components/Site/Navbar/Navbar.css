@@ -1,5 +1,5 @@
 nav {
-  position: initial;
+  position: static;
   text-align: center;
   width: 100%;
   top: 0;
@@ -17,4 +17,13 @@ ul {
 
 li {
   padding: 1.5em;
+}
+
+.nav_links {
+  text-decoration: none;
+  color: white;
+}
+.nav_links:hover {
+  text-decoration: none;
+  color: white;
 }
