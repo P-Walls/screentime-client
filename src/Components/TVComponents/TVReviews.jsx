@@ -6,13 +6,50 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
-//import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 
-class TVReviews extends Component {
-  constructor(props) {
+// type TVReviewsState = {
+//   deleteId: number;
+// };
+
+// type AcceptedProps = {
+//   userScore: string | number;
+//   review: string;
+//   tvReviews: {
+//     id: number;
+//     title: string;
+//     network: string;
+//     seasons: any;
+//     userScore: any;
+//     review: string;
+//   }[];
+//   fetchTVReviews: (token: string) => void;
+//   sessionToken: string;
+//   editUpdateTV: (tvReviews: {
+//     id: number;
+//     title: string;
+//     network: string;
+//     seasons: any;
+//     userScore: any;
+//     review: string;
+//   }) => void;
+//   tvToUpdate: {
+//     id: number;
+//     title: string;
+//     network: string;
+//     seasons: any;
+//     userScore: any;
+//     review: string;
+//   };
+//   updateOn: () => void;
+//   updateOff: () => void;
+//   updateActive: boolean;
+// };
+
+class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
+  constructor(props/*: AcceptedProps*/) {
     super(props);
     this.state = {
       deleteId: 0,
@@ -24,15 +61,15 @@ class TVReviews extends Component {
 
   // }
 
-  getDeleteId(e, id) {
+  getDeleteId(e/*: React.FormEvent<any>*/, id/*: number*/) {
     e.preventDefault();
     this.setState({ deleteId: id });
     this.deleteMedia(id);
     this.props.fetchTVReviews(this.props.sessionToken);
   }
 
-  deleteMedia(id) {
-    if (id !== "") {
+  deleteMedia(id/*: number*/) {
+    if (id !== null) {
       let url = `http://localhost:3025/tv/review/${id}`;
       fetch(url, {
         method: "DELETE",
@@ -54,23 +91,31 @@ class TVReviews extends Component {
 
   tvMapper = () => {
     //console.log(props.tvReviews);
-    return this.props.tvReviews.map((tvShows, index) => {
+    return this.props.tvReviews.map((
+      tvReviews /*: {
+          id: number;
+          title: string;
+          network: string;
+          seasons: number | string;
+          userScore: number | string;
+          review: string;
+        }*/,
+      index /*: number*/
+    ) => {
       return (
         <TableRow key={index} hover>
           <TableCell></TableCell>
-          <TableCell>{tvShows.title}</TableCell>
-          <TableCell>{tvShows.network}</TableCell>
-          <TableCell>{tvShows.seasons}</TableCell>
-          {/* <TableCell>{tvShows.watchlist}</TableCell> */}
-          <TableCell>{tvShows.userScore}</TableCell>
-          <TableCell>{tvShows.review}</TableCell>
-          {/* <TableCell>{tvShows.id}</TableCell> */}
+          <TableCell>{tvReviews.title}</TableCell>
+          <TableCell>{tvReviews.network}</TableCell>
+          <TableCell>{tvReviews.seasons}</TableCell>
+          <TableCell>{tvReviews.userScore}</TableCell>
+          <TableCell>{tvReviews.review}</TableCell>
           <TableCell>
             <ButtonGroup>
               <Button
                 color="primary"
                 onClick={() => {
-                  this.props.editUpdateTV(tvShows);
+                  this.props.editUpdateTV(tvReviews);
                   this.props.updateOn();
                 }}
               >
@@ -78,7 +123,7 @@ class TVReviews extends Component {
               </Button>
               <Button
                 color="secondary"
-                onClick={(e) => this.getDeleteId(e, tvShows.id)}
+                onClick={(e) => this.getDeleteId(e, tvReviews.id)}
               >
                 Delete Review
               </Button>
@@ -103,7 +148,6 @@ class TVReviews extends Component {
                 <TableCell>Title</TableCell>
                 <TableCell>Network</TableCell>
                 <TableCell>Seasons</TableCell>
-                {/* <TableCell>Watchlist</TableCell> */}
                 <TableCell>My Score</TableCell>
                 <TableCell>My Review</TableCell>
               </TableRow>
@@ -113,11 +157,13 @@ class TVReviews extends Component {
         </TableContainer>
         {this.props.updateActive ? (
           <TVEdit
+            userScore={this.props.userScore}
+            review={this.props.review}
             updateOn={this.props.updateOn}
             tvToUpdate={this.props.tvToUpdate}
             updateOff={this.props.updateOff}
             sessionToken={this.props.sessionToken}
-            fetchReviews={this.props.fetchReviews}
+            fetchTVReviews={this.props.fetchTVReviews}
           />
         ) : (
           <></>

@@ -2,17 +2,40 @@ import React, { Component } from "react";
 import MovieIndex from "../MovieComponents/MovieIndex";
 import TVIndex from "../TVComponents/TVIndex";
 
-class UserHome extends Component {
-  constructor(props) {
+type AcceptedProps = {
+  sessionToken: string;
+};
+
+type UserState = {
+  movieReviews: {
+    id: number;
+    title: string;
+    director: string;
+    release: string;
+    runtime: number;
+    userScore: number;
+    review: string;
+  }[];
+  tvReviews: {
+    id: number;
+    title: string;
+    network: string;
+    seasons: any;
+    userScore: any;
+    review: string;
+  }[];
+};
+
+class UserHome extends Component<AcceptedProps, UserState> {
+  constructor(props: AcceptedProps) {
     super(props);
     this.state = {
       movieReviews: [],
       tvReviews: [],
     };
-    //this.fetchReviews.bind(this);
   }
 
-  fetchMovieReviews = (token) => {
+  fetchMovieReviews = (token: string) => {
     fetch(`http://localhost:3025/movie/`, {
       method: "GET",
       headers: new Headers({
@@ -29,7 +52,7 @@ class UserHome extends Component {
       });
   };
 
-  fetchTVReviews = (token) => {
+  fetchTVReviews = (token: string) => {
     fetch(`http://localhost:3025/tv/`, {
       method: "GET",
       headers: new Headers({
@@ -50,11 +73,6 @@ class UserHome extends Component {
     this.fetchMovieReviews(this.props.sessionToken);
     this.fetchTVReviews(this.props.sessionToken);
   }
-
-  // componentDidUpdate() {
-  //   console.log(this.state.movieReviews);
-  //   console.log(this.state.tvReviews);
-  // }
 
   render() {
     return (

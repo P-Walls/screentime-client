@@ -4,28 +4,76 @@ import TVReviews from "./TVReviews";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
-//import FormControlLabel from "@material-ui/core/FormControlLabel";
-//import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
-class TVIndex extends Component {
-  constructor(props) {
+// type TVState = {
+//   title: string;
+//   network: string;
+//   seasons: any;
+//   userScore: any;
+//   review: string;
+//   tvToUpdate: {
+//     id: number;
+//     title: string;
+//     network: string;
+//     seasons: any;
+//     userScore: any;
+//     review: string;
+//   };
+//   updateActive: boolean;
+// };
+
+// type AcceptedProps = {
+//   sessionToken: string;
+//   fetchTVReviews: (token: string) => void;
+//   tvReviews: {
+//     id: number;
+//     title: string;
+//     network: string;
+//     seasons: any;
+//     userScore: any;
+//     review: string;
+//   }[];
+  // editUpdateTV: (tvReviews: {
+  //   id: number;
+  //   title: string;
+  //   network: string;
+  //   seasons: any;
+  //   userScore: any;
+  //   review: string;
+  // }) => void;
+// };
+
+class TVIndex extends Component/*<AcceptedProps, TVState>*/ {
+  constructor(props/*: AcceptedProps*/) {
     super(props);
     this.state = {
       title: "",
       network: "",
-      seasons: 0,
-      //watchlist: false,
-      userScore: 0,
+      seasons: "",
+      userScore: "",
       review: "",
-      TVToUpdate: {},
+      tvToUpdate: {
+        id: 0,
+        title: "",
+        network: "",
+        seasons: "",
+        userScore: "",
+        review: "",
+      },
       updateActive: false,
     };
   }
 
-  editUpdateTV = (tvReview) => {
-    this.setState({ tvToUpdate: tvReview });
+  editUpdateTV = (tvReviews/*: {
+    id: 0;
+    title: "";
+    network: "";
+    seasons: "";
+    userScore: "";
+    review: "";
+  }*/) => {
+    this.setState({ tvToUpdate: tvReviews });
   };
 
   updateOn = () => {
@@ -36,7 +84,7 @@ class TVIndex extends Component {
     this.setState({ updateActive: false });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = (e/*: React.FormEvent<any>*/) => {
     e.preventDefault();
     console.log(this.state.title);
 
@@ -50,7 +98,6 @@ class TVIndex extends Component {
         title: this.state.title,
         network: this.state.network,
         seasons: this.state.seasons,
-        //watchlist: this.state.watchlist,
         userScore: this.state.userScore,
         review: this.state.review,
       }),
@@ -58,12 +105,10 @@ class TVIndex extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        //Come back to clearing the form
         this.setState({
           title: "",
           network: "",
           seasons: 0,
-          //watchlist: false,
           userScore: 0,
           review: "",
         });
@@ -108,30 +153,11 @@ class TVIndex extends Component {
                     size="small"
                     style={{ margin: 8 }}
                     value={this.state.seasons}
-                    onChange={(e) =>
-                      this.setState({ seasons: e.target.value })
-                    }
+                    onChange={(e) => this.setState({ seasons: e.target.value })}
                     required
                   />
                 </FormGroup>
                 <FormGroup row>
-                  {/* <FormControlLabel
-                    control={
-                      <Checkbox
-                        color="primary"
-                        value="false"
-                        onChange={(e) =>
-                          this.setState({ watchlist: e.target.value })
-                        }
-                      />
-                    }
-                    htmlFor="watchlist"
-                    style={{ margin: "1px" }}
-                    label="Watchlist: "
-                    labelPlacement="start"
-                    style={{ margin: 8 }}
-                  /> */}
-
                   <TextField
                     variant="outlined"
                     label="My Score"
@@ -140,14 +166,12 @@ class TVIndex extends Component {
                     type="number"
                     helperText="Out of 10"
                     value={this.state.userScore}
-                    min="0"
-                    max="10"
+                    // min="0"
+                    // max="10"
                     onChange={(e) =>
                       this.setState({ userScore: e.target.value })
                     }
                   />
-                  {/* </FormGroup>
-                <FormGroup> */}
                   <TextField
                     variant="outlined"
                     label="My Review"
@@ -176,7 +200,7 @@ class TVIndex extends Component {
             fetchTVReviews={this.props.fetchTVReviews}
             sessionToken={this.props.sessionToken}
             editUpdateTV={this.editUpdateTV}
-            tvToUpdate={this.state.TVToUpdate}
+            tvToUpdate={this.state.tvToUpdate}
             updateOn={this.updateOn}
             updateOff={this.updateOff}
             updateActive={this.state.updateActive}

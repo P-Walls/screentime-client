@@ -4,11 +4,32 @@ import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
 
-class TVEdit extends Component {
-  constructor(props) {
+type AcceptedProps = {
+  userScore: number | string;
+  review: string;
+  updateOn: () => void;
+  updateOff: () => void;
+  tvToUpdate: {
+    id: number;
+    title: string;
+    network: string;
+    seasons: number;
+    userScore: number | string;
+    review: string;
+  };
+  sessionToken: string;
+  fetchTVReviews: (token: string) => void;
+};
+
+type TVEditState = {
+  editUserScore: number | string;
+  editReview: string;
+};
+
+class TVEdit extends Component<AcceptedProps, TVEditState> {
+  constructor(props: AcceptedProps) {
     super(props);
     this.state = {
-      //editWatchlist: this.props.movieToUpdate.watchlist,
       editUserScore: this.props.tvToUpdate.userScore,
       editReview: this.props.tvToUpdate.review,
     };
@@ -18,12 +39,11 @@ class TVEdit extends Component {
     this.props.updateOff();
   };
 
-  tvUpdate = (e) => {
+  tvUpdate = (e: React.FormEvent<any>) => {
     e.preventDefault();
     fetch(`http://localhost:3025/tv/review/${this.props.tvToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
-        //watchlist: this.state.editWatchlist,
         userScore: this.state.editUserScore,
         review: this.state.editReview,
       }),
@@ -32,7 +52,7 @@ class TVEdit extends Component {
         Authorization: this.props.sessionToken,
       }),
     }).then((res) => {
-      this.props.fetchReviews(this.props.sessionToken);
+      this.props.fetchTVReviews(this.props.sessionToken);
       console.log(res);
       this.props.updateOff();
     });
@@ -46,13 +66,6 @@ class TVEdit extends Component {
             <h3>{this.props.tvToUpdate.title}</h3>
           </div>
           <form onSubmit={this.tvUpdate}>
-            {/* <label htmlFor="watchlist">Watchlist: </label>
-          <input
-            type="checkbox"
-            name="watchlist"
-            value={this.state.editWatchlist}
-            onChange={(e) => this.setState({ editWatchlist: e.target.value })}
-          /> */}
             <FormGroup row>
               <label htmlFor="userScore">Edit Score: </label>
               <TextField

@@ -3,16 +3,29 @@ import "./Auth.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-class Auth extends Component {
-  constructor(props) {
+type AcceptedProps = {
+  updateToken: (newToken: string) => void;
+  sessionToken: string;
+};
+
+type AuthState = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  error: any;
+  login: boolean;
+};
+
+class Auth extends Component<AcceptedProps, AuthState> {
+  constructor(props: AcceptedProps) {
     super(props);
     this.state = {
       firstName: "",
       lastName: "",
       email: "",
       password: "",
-      sessionToken: "",
-      passError: "",
+      error: "",
       login: false,
     };
   }
@@ -26,25 +39,24 @@ class Auth extends Component {
   };
 
   passError = () => {
-    return this.state.passError === true ? (
+    return this.state.error === true ? (
       <span
         className="pass_error"
-        style={{ width: "100%", textAlign: "center" }}
+        style={{ width: "100%", textAlign: "center", color: "red" }}
       >
         Password must be 7 characters or Longer!
       </span>
     ) : null;
   };
 
-  loginToggle = (e) => {
+  loginToggle = (e: React.FormEvent<any>) => {
     e.preventDefault();
     this.setState({
       firstName: "",
       lastName: "",
       email: "",
       password: "",
-      sessionToken: "",
-      passError: "",
+      error: "",
       login: !this.state.login,
     });
   };
@@ -75,7 +87,7 @@ class Auth extends Component {
     ) : null;
   }
 
-  handleSubmit = (event, props /*: React.FormEvent<HTMLElement>*/) => {
+  handleSubmit = (event: React.FormEvent<any>) => {
     event.preventDefault();
 
     if (this.state.password.length > 7) {
@@ -110,8 +122,7 @@ class Auth extends Component {
         lastName: "",
         email: "",
         password: "",
-        sessionToken: "",
-        passError: (
+        error: (
           <span style={{ width: "100%", textAlign: "center" }}>
             Password must be 7 characters or Longer!
           </span>
@@ -123,7 +134,7 @@ class Auth extends Component {
   render() {
     return (
       <div className="form-body">
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(e) => this.handleSubmit(e)}>
           <div>
             <h3>{this.title()}</h3>
           </div>
@@ -142,9 +153,14 @@ class Auth extends Component {
             onChange={(e) => this.setState({ password: e.target.value })}
           />
           <br />
-          {this.state.passError}
+          {this.state.error}
           <br />
-          <Button type="submit" color="primary" variant="contained" size="small">
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            size="small"
+          >
             Submit
           </Button>{" "}
           <Button
