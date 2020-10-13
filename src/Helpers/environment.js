@@ -6,7 +6,7 @@ switch (window.location.hostname) {
     APIURL = "localhost:3025";
     break;
 
-  case "screentime-server.herokuapp.com":
+  case "screentime-client.herokuapp.com":
     APIURL = "https://screentime-server.herokuapp.com";
     break;
 
