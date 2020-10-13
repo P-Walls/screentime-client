@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Navbar from "../Navbar/Navbar";
 import Auth from "../../Auth/Auth";
 import UserHome from "../../User Components/UserHome";
-import Test from "../../Search/Test";
+import MovieIndex from "../../MovieComponents/MovieIndex";
+import TVIndex from "../../TVComponents/TVIndex";
 import "./Main.css";
 import {
   BrowserRouter as Router,
@@ -10,6 +11,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import Admin from "../../Admin/Admin";
 
 // type StateTypes = {
 //   sessionToken: string;
@@ -20,6 +22,7 @@ class Main extends Component /*<{}, StateTypes>*/ {
     super(props);
     this.state = {
       sessionToken: "",
+      role: false,
     };
   }
 
@@ -36,16 +39,39 @@ class Main extends Component /*<{}, StateTypes>*/ {
     });
   };
 
+  updateRole = (newRole /*: string*/) => {
+    this.setState({
+      role: newRole,
+    });
+  };
+
+  adminViews = () => {
+    if (this.state.role === true) {
+      return (
+        <Admin sessionToken={this.state.sessionToken} role={this.state.role} />
+      );
+    } else {
+      return (
+        <UserHome
+          sessionToken={this.state.sessionToken}
+          role={this.state.role}
+        />
+      );
+    }
+  };
+
   protectedViews = () => {
     return this.state.sessionToken === localStorage.getItem("token") ? (
       <Route exact path="/home">
-        <UserHome sessionToken={this.state.sessionToken} />
+        {this.adminViews()}
       </Route>
     ) : (
       <Route exact path="/">
         <Auth
           sessionToken={this.state.sessionToken}
           updateToken={this.updateToken}
+          updateRole={this.updateRole}
+          role={this.state.role}
         />
       </Route>
     );
@@ -64,6 +90,7 @@ class Main extends Component /*<{}, StateTypes>*/ {
             sessionToken={this.state.sessionToken}
             updateToken={this.updateToken}
             clearToken={this.clearToken}
+            role={this.state.role}
           />
           <div>
             <Switch>
@@ -71,20 +98,36 @@ class Main extends Component /*<{}, StateTypes>*/ {
                 {this.state.sessionToken === localStorage.getItem("token") ? (
                   <Redirect to="/home" />
                 ) : (
-                  <Auth updateToken={this.updateToken} />
+                  <Auth
+                    updateRole={this.updateRole}
+                    updateToken={this.updateToken}
+                  />
                 )}
               </Route>
               {this.protectedViews()}
-              <Route path="/movies">
-                <UserHome sessionToken={this.state.sessionToken}  />
+              <Route path="/home">
+                <UserHome
+                  sessionToken={this.state.sessionToken}
+                  role={this.state.role}
+                />
               </Route>
-              <Route path="/test">
-                <Test />
+              <Route path="/movies">
+                {this.state.sessionToken === localStorage.getItem("token") ? (
+                  <MovieIndex sessionToken={this.state.sessionToken} />
+                ) : (
+                  <Redirect to="/" />
+                )}
+              </Route>
+              <Route path="/tv">
+                {this.state.sessionToken === localStorage.getItem("token") ? (
+                  <TVIndex sessionToken={this.state.sessionToken} />
+                ) : (
+                  <Redirect to="/" />
+                )}
               </Route>
             </Switch>
           </div>
         </Router>
-        <div className="main"></div>
       </div>
     );
   }

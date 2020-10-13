@@ -9,6 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
+import APIURL from "../../Helpers/environment";
 
 // type TVReviewsState = {
 //   deleteId: number;
@@ -70,7 +71,7 @@ class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
 
   deleteMedia(id/*: number*/) {
     if (id !== null) {
-      let url = `http://localhost:3025/tv/review/${id}`;
+      let url = `http://${APIURL}/tv/review/${id}`;
       fetch(url, {
         method: "DELETE",
         headers: new Headers({
@@ -137,7 +138,7 @@ class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
   render() {
     return (
       <div>
-        <TableContainer component={Paper}>
+        <TableContainer className="reviews-table" component={Paper}>
           <div>
             <h3>TV Reviews</h3>
           </div>
@@ -164,6 +165,7 @@ class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
             updateOff={this.props.updateOff}
             sessionToken={this.props.sessionToken}
             fetchTVReviews={this.props.fetchTVReviews}
+            updateActive={this.props.updateActive}
           />
         ) : (
           <></>

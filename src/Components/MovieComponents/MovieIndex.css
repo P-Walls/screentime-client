@@ -1,0 +1,16 @@
+.extra-space {
+  height: 7.5em;
+}
+
+.movie-index {
+  min-height: 100vh;
+  background: url("../../Assets/pylz-works-ViI6qkoRfNA-unsplash.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.reviews-table {
+  max-height: 80vh;
+  margin: 0.5em;
+  padding: 0.5em;
+}

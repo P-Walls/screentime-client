@@ -1,0 +1,19 @@
+.extra-space {
+  height: 10em;
+}
+
+.admin-index {
+  min-height: 100vh;
+  background: url("../../Assets/felix-mooneeram-evlkOfkQ5rE-unsplash.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-table {
+  max-height: 80vh;
+  margin: 7.5em 3em;
+  width: 80%;
+}

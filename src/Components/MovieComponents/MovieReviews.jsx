@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import MovieEdit from "./MovieEdit";
-import Paper from "@material-ui/core/Paper";
+import Container from "@material-ui/core/Container";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,6 +10,16 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
+import APIURL from "../../Helpers/environment";
+import Paper from "@material-ui/core/Paper";
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = {
+  root: {
+    maxHeight: 150,
+    width: "100%"
+  }
+}
 
 class MovieReviews extends Component {
   constructor(props) {
@@ -32,7 +43,7 @@ class MovieReviews extends Component {
 
   deleteMedia(id) {
     if (id !== "") {
-      let url = `http://localhost:3025/movie/review/${id}`;
+      let url = `http://${APIURL}/movie/review/${id}`;
       fetch(url, {
         method: "DELETE",
         headers: new Headers({
@@ -61,7 +72,6 @@ class MovieReviews extends Component {
           <TableCell>{movies.director}</TableCell>
           <TableCell>{movies.year}</TableCell>
           <TableCell>{movies.runtime}</TableCell>
-          {/* <TableCell>{movies.watchlist}</TableCell> */}
           <TableCell>{movies.userScore}</TableCell>
           <TableCell>{movies.review}</TableCell>
           {/* <TableCell>{movies.id}</TableCell> */}
@@ -90,13 +100,15 @@ class MovieReviews extends Component {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div>
-        <TableContainer component={Paper}>
-          <div>
+        <TableContainer className="reviews-table" component={Paper}>
+          <Container>
             <h3>Movie Reviews</h3>
-          </div>
-          <Table aria-label="sticky table">
+          </Container>
+          <Table stickyHeader aria-label="sticky table" className={classes.root}>
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
@@ -104,7 +116,6 @@ class MovieReviews extends Component {
                 <TableCell>Director</TableCell>
                 <TableCell>Year</TableCell>
                 <TableCell>Runtime</TableCell>
-                {/* <TableCell>Watchlist</TableCell> */}
                 <TableCell>My Score</TableCell>
                 <TableCell>My Review</TableCell>
               </TableRow>
@@ -119,6 +130,7 @@ class MovieReviews extends Component {
             updateOff={this.props.updateOff}
             sessionToken={this.props.sessionToken}
             fetchMovieReviews={this.props.fetchMovieReviews}
+            updateActive={this.props.updateActive}
           />
         ) : (
           <></>
@@ -128,4 +140,8 @@ class MovieReviews extends Component {
   }
 }
 
-export default MovieReviews;
+Table.propTypes = {
+  classes: PropTypes.object,
+};
+
+export default withStyles(styles)(MovieReviews);

@@ -1,14 +1,19 @@
 import React, { Component } from "react";
-import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
+import APIURL from "../../Helpers/environment";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 type AcceptedProps = {
   userScore: number | string;
   review: string;
   updateOn: () => void;
   updateOff: () => void;
+  updateActive: boolean;
   tvToUpdate: {
     id: number;
     title: string;
@@ -24,6 +29,7 @@ type AcceptedProps = {
 type TVEditState = {
   editUserScore: number | string;
   editReview: string;
+  //open: boolean;
 };
 
 class TVEdit extends Component<AcceptedProps, TVEditState> {
@@ -32,8 +38,17 @@ class TVEdit extends Component<AcceptedProps, TVEditState> {
     this.state = {
       editUserScore: this.props.tvToUpdate.userScore,
       editReview: this.props.tvToUpdate.review,
+      //open: false,
     };
   }
+
+  // handleOpen = () => {
+  //   this.setState({open: true});
+  // }
+
+  // handleClose = () => {
+  //   this.setState({ open: false });
+  // }
 
   toggle = () => {
     this.props.updateOff();
@@ -41,7 +56,7 @@ class TVEdit extends Component<AcceptedProps, TVEditState> {
 
   tvUpdate = (e: React.FormEvent<any>) => {
     e.preventDefault();
-    fetch(`http://localhost:3025/tv/review/${this.props.tvToUpdate.id}`, {
+    fetch(`http://${APIURL}/tv/review/${this.props.tvToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
         userScore: this.state.editUserScore,
@@ -61,39 +76,54 @@ class TVEdit extends Component<AcceptedProps, TVEditState> {
   render() {
     return (
       <div>
-        <Container>
+        <Dialog open={this.props.updateActive}>
           <div>
-            <h3>{this.props.tvToUpdate.title}</h3>
+            <DialogTitle>
+              Edit your score and review for {this.props.tvToUpdate.title}
+            </DialogTitle>
           </div>
-          <form onSubmit={this.tvUpdate}>
-            <FormGroup row>
-              <label htmlFor="userScore">Edit Score: </label>
-              <TextField
-                variant="outlined"
-                size="small"
-                type="number"
-                name="userScore"
-                value={this.state.editUserScore}
-                onChange={(e) =>
-                  this.setState({ editUserScore: e.target.value })
-                }
-              />
-              <label htmlFor="Review">Edit Review: </label>
-              <TextField
-                fullWidth
-                multiline
-                variant="outlined"
-                size="small"
-                type="text"
-                name="review"
-                value={this.state.editReview}
-                onChange={(e) => this.setState({ editReview: e.target.value })}
-              />
-            </FormGroup>
-            <Button type="submit">Submit</Button>{" "}
-            <Button onClick={this.toggle}>Cancel</Button>
-          </form>
-        </Container>
+          <DialogContent>
+            <form onSubmit={this.tvUpdate}>
+              <FormGroup row>
+                <TextField
+                  label="Edit Score:"
+                  variant="outlined"
+                  size="small"
+                  type="number"
+                  name="userScore"
+                  value={this.state.editUserScore}
+                  onChange={(e) =>
+                    this.setState({ editUserScore: e.target.value })
+                  }
+                />
+              </FormGroup>
+              <br />
+              <FormGroup row>
+                <TextField
+                  label="Edit Review:"
+                  fullWidth
+                  multiline
+                  variant="outlined"
+                  size="small"
+                  type="text"
+                  name="review"
+                  value={this.state.editReview}
+                  onChange={(e) =>
+                    this.setState({ editReview: e.target.value })
+                  }
+                />
+              </FormGroup>
+              <DialogActions>
+                <Button type="submit" color="primary">
+                  Submit
+                </Button>{" "}
+                <Button onClick={this.toggle} color="secondary">
+                  Cancel
+                </Button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
     );
   }

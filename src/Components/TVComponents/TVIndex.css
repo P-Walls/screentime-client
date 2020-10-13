@@ -1,0 +1,14 @@
+.extra-space {
+  height: 7.5em;
+}
+
+.tv-index {
+  min-height: 100vh;
+  background: url("../../Assets/jisun-han-GYYeBqVwpZI-unsplash.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.reviews-table {
+  max-height: 100vh;
+}

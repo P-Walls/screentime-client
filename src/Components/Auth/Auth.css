@@ -1,0 +1,11 @@
+
+.form-body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../../Assets/sven-scheuermeier-XCBW03rNaNQ-unsplash.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+}

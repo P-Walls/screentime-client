@@ -2,10 +2,16 @@ import React, { Component } from "react";
 import "./Auth.css";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import APIURL from "../../Helpers/environment";
+import Paper from "@material-ui/core/Paper";
+import Container from "@material-ui/core/Container";
+import Admin from "../Admin/Admin";
 
 type AcceptedProps = {
   updateToken: (newToken: string) => void;
   sessionToken: string;
+  updateRole: (newRole: boolean) => void;
+  role: boolean;
 };
 
 type AuthState = {
@@ -13,6 +19,7 @@ type AuthState = {
   lastName: string;
   email: string;
   password: string;
+  role: boolean;
   error: any;
   login: boolean;
 };
@@ -25,13 +32,14 @@ class Auth extends Component<AcceptedProps, AuthState> {
       lastName: "",
       email: "",
       password: "",
+      role: false,
       error: "",
-      login: false,
+      login: true,
     };
   }
 
   title = () => {
-    return this.state.login === true ? "Login" : "Signup";
+    return this.state.login === true ? "Login To Start Reviewing!" : "Create An Account";
   };
 
   label = () => {
@@ -96,12 +104,12 @@ class Auth extends Component<AcceptedProps, AuthState> {
         password: this.state.password,
         firstName: this.state.firstName,
         lastName: this.state.lastName,
-        role: "user",
+        role: this.props.role,
       };
 
       let url = this.state.login
-        ? `http://localhost:3025/user/login`
-        : `http://localhost:3025/user/register`;
+        ? `http://${APIURL}/user/login`
+        : `http://${APIURL}/user/register`;
 
       fetch(url, {
         method: "POST",
@@ -113,6 +121,8 @@ class Auth extends Component<AcceptedProps, AuthState> {
         .then((res) => res.json())
         .then((data) => {
           this.props.updateToken(data.sessionToken);
+          this.props.updateRole(data.user.role);
+          console.log(data.user.role)
           console.log(data);
         })
         .catch((err) => console.log(err));
@@ -131,47 +141,68 @@ class Auth extends Component<AcceptedProps, AuthState> {
     }
   };
 
+  authViews(){
+    if (this.props.role === true) {
+      return(<div>
+        <Admin/>
+      </div> )
+    }
+  }
+
   render() {
     return (
-      <div className="form-body">
-        <form onSubmit={(e) => this.handleSubmit(e)}>
-          <div>
-            <h3>{this.title()}</h3>
-          </div>
-          {this.signupFields()}
-          <label htmlFor="email">Email:</label>
-          <br />
-          <TextField
-            type="text"
-            onChange={(e) => this.setState({ email: e.target.value })}
-          />
-          <br />
-          <label htmlFor="password">Password:</label>
-          <br />
-          <TextField
-            type="password"
-            onChange={(e) => this.setState({ password: e.target.value })}
-          />
-          <br />
-          {this.state.error}
-          <br />
-          <Button
-            type="submit"
-            color="primary"
-            variant="contained"
-            size="small"
-          >
-            Submit
-          </Button>{" "}
-          <Button
-            onClick={this.loginToggle}
-            color="secondary"
-            variant="contained"
-            size="small"
-          >
-            {this.label()}
-          </Button>
-        </form>
+      <div className="main">
+        <div className="form-body">
+          <Container maxWidth="xs">
+            <Paper>
+              <br />
+              <form onSubmit={(e) => this.handleSubmit(e)}>
+                <div>
+                  <h3>{this.title()}</h3>
+                </div>
+                {this.signupFields()}
+                <label htmlFor="email">Email:</label>
+                <br />
+                <TextField
+                  type="text"
+                  onChange={(e) => {
+                    this.setState({ email: e.target.value });
+                    if (this.state.email === "pwalls@admin.com") {
+                      this.setState({ role: true });
+                    }
+                  }}
+                />
+                <br />
+                <label htmlFor="password">Password:</label>
+                <br />
+                <TextField
+                  type="password"
+                  onChange={(e) => this.setState({ password: e.target.value })}
+                />
+                <br />
+                {this.state.error}
+                <br />
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  size="small"
+                >
+                  Submit
+                </Button>{" "}
+                <Button
+                  onClick={this.loginToggle}
+                  color="secondary"
+                  variant="contained"
+                  size="small"
+                >
+                  {this.label()}
+                </Button>
+              </form>
+              <br />
+            </Paper>
+          </Container>
+        </div>
       </div>
     );
   }

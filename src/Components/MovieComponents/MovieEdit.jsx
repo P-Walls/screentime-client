@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import FormGroup from "@material-ui/core/FormGroup";
 import TextField from "@material-ui/core/TextField";
+import APIURL from "../../Helpers/environment";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 class MovieEdit extends Component {
   constructor(props) {
@@ -20,7 +24,7 @@ class MovieEdit extends Component {
 
   movieUpdate = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3025/movie/review/${this.props.movieToUpdate.id}`, {
+    fetch(`http://${APIURL}/movie/review/${this.props.movieToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
         //watchlist: this.state.editWatchlist,
@@ -41,46 +45,56 @@ class MovieEdit extends Component {
   render() {
     return (
       <div>
-        <Container>
+        <Dialog open={this.props.updateActive}>
           <div>
-            <h3>{this.props.movieToUpdate.title}</h3>
+            <DialogTitle>
+              <h3>
+                Edit your score and review for {this.props.movieToUpdate.title}
+              </h3>
+            </DialogTitle>
           </div>
-          <form onSubmit={this.movieUpdate}>
-            {/* <label htmlFor="watchlist">Watchlist: </label>
-          <input
-            type="checkbox"
-            name="watchlist"
-            value={this.state.editWatchlist}
-            onChange={(e) => this.setState({ editWatchlist: e.target.value })}
-          /> */}
-            <FormGroup row>
-              <label htmlFor="userScore">Edit Score: </label>
-              <TextField
-                variant="outlined"
-                size="small"
-                type="number"
-                name="userScore"
-                value={this.state.editUserScore}
-                onChange={(e) =>
-                  this.setState({ editUserScore: e.target.value })
-                }
-              />
-              <label htmlFor="Review">Edit Review: </label>
-              <TextField
-                fullWidth
-                multiline
-                variant="outlined"
-                size="small"
-                type="text"
-                name="review"
-                value={this.state.editReview}
-                onChange={(e) => this.setState({ editReview: e.target.value })}
-              />
-            </FormGroup>
-            <Button type="submit">Submit</Button>{" "}
-            <Button onClick={this.toggle}>Cancel</Button>
-          </form>
-        </Container>
+          <DialogContent>
+            <form onSubmit={this.movieUpdate}>
+              <FormGroup row>
+                <TextField
+                  label="Edit Score:"
+                  variant="outlined"
+                  size="small"
+                  type="number"
+                  name="userScore"
+                  value={this.state.editUserScore}
+                  onChange={(e) =>
+                    this.setState({ editUserScore: e.target.value })
+                  }
+                />
+              </FormGroup>
+              <br />
+              <FormGroup row>
+                <TextField
+                  label="Edit Review:"
+                  fullWidth
+                  multiline
+                  variant="outlined"
+                  size="small"
+                  type="text"
+                  name="review"
+                  value={this.state.editReview}
+                  onChange={(e) =>
+                    this.setState({ editReview: e.target.value })
+                  }
+                />
+              </FormGroup>
+              <DialogActions>
+                <Button type="submit" color="primary">
+                  Submit
+                </Button>{" "}
+                <Button onClick={this.toggle} color="secondary">
+                  Cancel
+                </Button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
       </div>
     );
   }

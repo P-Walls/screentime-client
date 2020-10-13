@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import MovieIndex from "../MovieComponents/MovieIndex";
-import TVIndex from "../TVComponents/TVIndex";
+import Paper from "@material-ui/core/Paper";
+import Container from "@material-ui/core/Container";
+import "./UserHome.css";
 
 type AcceptedProps = {
   sessionToken: string;
+  role: boolean;
 };
 
 type UserState = {
@@ -35,60 +37,26 @@ class UserHome extends Component<AcceptedProps, UserState> {
     };
   }
 
-  fetchMovieReviews = (token: string) => {
-    fetch(`http://localhost:3025/movie/`, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: token,
-      }),
-    })
-      .then((res) => res.json())
-      .then((reviews) => {
-        //console.log(reviews)
-        this.setState({
-          movieReviews: reviews,
-        });
-      });
-  };
-
-  fetchTVReviews = (token: string) => {
-    fetch(`http://localhost:3025/tv/`, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        Authorization: token,
-      }),
-    })
-      .then((res) => res.json())
-      .then((reviews) => {
-        //console.log(reviews)
-        this.setState({
-          tvReviews: reviews,
-        });
-      });
-  };
-
-  componentWillMount() {
-    this.fetchMovieReviews(this.props.sessionToken);
-    this.fetchTVReviews(this.props.sessionToken);
-  }
-
   render() {
     return (
-      <div>
-        <h2>Welcome!</h2>
-        <MovieIndex
-          sessionToken={this.props.sessionToken}
-          movieReviews={this.state.movieReviews}
-          fetchMovieReviews={this.fetchMovieReviews}
-        />
-
-        <TVIndex
-          sessionToken={this.props.sessionToken}
-          tvReviews={this.state.tvReviews}
-          fetchTVReviews={this.fetchTVReviews}
-        />
+      <div className="user-landing">
+        <Container  maxWidth="lg">
+          <div className="extra-space"></div>
+          <Container className="user-greeting" maxWidth="sm">
+            <Paper>
+              <br/>
+            <h1>Welcome to ScreenTime!</h1>
+            <div>
+              <p>
+                Click the links above to start reviewing your favorite movies
+                and TV shows!
+              </p>
+            </div>
+            <br></br>
+            </Paper>
+          </Container>
+          <div className="extra-space"></div>
+        </Container>
       </div>
     );
   }

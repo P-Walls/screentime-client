@@ -12,17 +12,6 @@ import MovieIcon from "@material-ui/icons/Movie";
 import "./Navbar.css";
 
 class Navbar extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // }
-
-  // componentWillMount() {
-  //   localStorage.getItem("token") != undefined
-  //     ? console.log(this.props.sessionToken)
-  //     : console.log("No Session Token");
-  // }
-
   componentDidUpdate() {
     (this.props.sessionToken !== "") | undefined
       ? console.log(this.props.sessionToken)
@@ -36,18 +25,27 @@ class Navbar extends Component {
         <AppBar>
           <Toolbar>
             <IconButton edge="start" color="inherit" aria-label="menu">
-              <MovieIcon />
+              <Link className="nav_links" to="/">
+                <MovieIcon />
+              </Link>
             </IconButton>
             <Typography variant="h4" color="inherit">
-              <Link className="nav_links" to="/home">
+              <Link className="nav_links" to="/">
                 ScreenTime
               </Link>
             </Typography>
             <ul>
               <li>
                 <Button color="inherit">
-                  <Link className="nav_links" to="/test">
-                    Test
+                  <Link className="nav_links" to="/movies">
+                    Movies
+                  </Link>
+                </Button>
+              </li>
+              <li>
+                <Button color="inherit">
+                  <Link className="nav_links" to="/tv">
+                    TV Shows
                   </Link>
                 </Button>
               </li>

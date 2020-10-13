@@ -1,0 +1,19 @@
+.extra-space {
+  height: 7.5em;
+}
+
+.user-landing {
+  background: url("../../Assets/myke-simon-atsUqIm3wxo-unsplash-lg.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-greeting {
+  display: flex;
+  padding: 3em;
+  margin: auto;
+}
