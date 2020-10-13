@@ -7,7 +7,7 @@ switch (window.location.hostname) {
     break;
 
   case "screentime-client.herokuapp.com":
-    APIURL = "https://screentime-server.herokuapp.com";
+    APIURL = "screentime-server.herokuapp.com";
     break;
 
   default:
