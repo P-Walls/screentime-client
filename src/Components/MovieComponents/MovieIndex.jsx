@@ -38,7 +38,7 @@ class MovieIndex extends Component {
   };
 
   fetchMovieReviews = (token) => {
-    fetch(`http://${APIURL}/movie/`, {
+    fetch(`https://${APIURL}/movie/`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ class MovieIndex extends Component {
     e.preventDefault();
     console.log(this.state.title);
 
-    fetch(`http://${APIURL}/movie/review`, {
+    fetch(`https://${APIURL}/movie/review`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",

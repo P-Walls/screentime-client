@@ -108,8 +108,8 @@ class Auth extends Component<AcceptedProps, AuthState> {
       };
 
       let url = this.state.login
-        ? `http://${APIURL}/user/login`
-        : `http://${APIURL}/user/register`;
+        ? `https://${APIURL}/user/login`
+        : `https://${APIURL}/user/register`;
 
       fetch(url, {
         method: "POST",

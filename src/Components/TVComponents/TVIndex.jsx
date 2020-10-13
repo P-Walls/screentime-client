@@ -91,7 +91,7 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
   };
 
   fetchTVReviews = (token /*: string*/) => {
-    fetch(`http://${APIURL}/tv/`, {
+    fetch(`https://${APIURL}/tv/`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -116,7 +116,7 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
     e.preventDefault();
     console.log(this.state.title);
 
-    fetch(`http://${APIURL}/tv/review`, {
+    fetch(`https://${APIURL}/tv/review`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",

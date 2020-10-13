@@ -33,7 +33,7 @@ class Admin extends Component {
   };
 
   fetchMovieReviews = (token) => {
-    fetch(`http://${APIURL}/movie/all`, {
+    fetch(`https://${APIURL}/movie/all`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ class Admin extends Component {
   };
 
   fetchTVReviews = (token) => {
-    fetch(`http://${APIURL}/tv/all`, {
+    fetch(`https://${APIURL}/tv/all`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -93,7 +93,7 @@ class Admin extends Component {
 
   deleteMovie(id) {
     if (id !== "") {
-      let url = `http://${APIURL}/movie/review/${id}`;
+      let url = `https://${APIURL}/movie/review/${id}`;
       fetch(url, {
         method: "DELETE",
         headers: new Headers({
@@ -113,7 +113,7 @@ class Admin extends Component {
 
   deleteTV(id /*: number*/) {
     if (id !== null) {
-      let url = `http://${APIURL}/tv/review/${id}`;
+      let url = `https://${APIURL}/tv/review/${id}`;
       fetch(url, {
         method: "DELETE",
         headers: new Headers({

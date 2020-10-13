@@ -43,7 +43,7 @@ class MovieReviews extends Component {
 
   deleteMedia(id) {
     if (id !== "") {
-      let url = `http://${APIURL}/movie/review/${id}`;
+      let url = `https://${APIURL}/movie/review/${id}`;
       fetch(url, {
         method: "DELETE",
         headers: new Headers({

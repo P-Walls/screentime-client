@@ -71,7 +71,7 @@ class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
 
   deleteMedia(id/*: number*/) {
     if (id !== null) {
-      let url = `http://${APIURL}/tv/review/${id}`;
+      let url = `https://${APIURL}/tv/review/${id}`;
       fetch(url, {
         method: "DELETE",
         headers: new Headers({
