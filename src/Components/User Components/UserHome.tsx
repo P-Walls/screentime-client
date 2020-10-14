@@ -13,7 +13,7 @@ type UserState = {
     id: number;
     title: string;
     director: string;
-    release: string;
+    year: string;
     runtime: number;
     userScore: number;
     review: string;

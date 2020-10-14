@@ -143,15 +143,15 @@ class Auth extends Component<AcceptedProps, AuthState> {
     }
   };
 
-  authViews() {
-    if (this.props.role === true) {
-      return (
-        <div>
-          <Admin />
-        </div>
-      );
-    }
-  }
+  // authViews() {
+  //   if (this.props.role === true) {
+  //     return (
+  //       <div>
+  //         <Admin />
+  //       </div>
+  //     );
+  //   }
+  // }
 
   render() {
     return (

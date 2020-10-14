@@ -90,7 +90,7 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
     this.setState({ updateActive: false });
   };
 
-  fetchTVReviews = (token /*: string*/) => {
+  fetchTVReviews = (token /*: string*/) => { // Commenting so that I'm able to redeploy
     fetch(`${APIURL}/tv/`, {
       method: "GET",
       headers: new Headers({

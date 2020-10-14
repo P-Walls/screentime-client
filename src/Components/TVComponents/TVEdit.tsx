@@ -29,7 +29,6 @@ type AcceptedProps = {
 type TVEditState = {
   editUserScore: number | string;
   editReview: string;
-  //open: boolean;
 };
 
 class TVEdit extends Component<AcceptedProps, TVEditState> {
@@ -38,17 +37,8 @@ class TVEdit extends Component<AcceptedProps, TVEditState> {
     this.state = {
       editUserScore: this.props.tvToUpdate.userScore,
       editReview: this.props.tvToUpdate.review,
-      //open: false,
     };
   }
-
-  // handleOpen = () => {
-  //   this.setState({open: true});
-  // }
-
-  // handleClose = () => {
-  //   this.setState({ open: false });
-  // }
 
   toggle = () => {
     this.props.updateOff();
