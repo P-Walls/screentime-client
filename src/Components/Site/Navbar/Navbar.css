@@ -5,6 +5,7 @@ nav {
   top: 0;
   left: 0;
   height: 10vh;
+  font-family: 'Courier Prime', monospace;
 }
 
 ul {
@@ -20,10 +21,16 @@ li {
 }
 
 .nav_links {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
   text-decoration: none;
   color: white;
 }
 .nav_links:hover {
   text-decoration: none;
   color: white;
+}
+
+.navbar{
+  background-color: #5299D3;
 }

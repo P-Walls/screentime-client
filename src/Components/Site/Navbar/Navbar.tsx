@@ -12,15 +12,15 @@ type AcceptedProps = {
   sessionToken: string;
   clearToken: () => void;
   role: boolean;
-}
+};
 
 class Navbar extends Component<AcceptedProps, {}> {
-  constructor(props: AcceptedProps){
-    super(props)
+  constructor(props: AcceptedProps) {
+    super(props);
   }
 
   componentDidUpdate() {
-    (this.props.sessionToken)
+    this.props.sessionToken
       ? console.log(this.props.sessionToken)
       : console.log("No Session Token");
   }
@@ -30,37 +30,45 @@ class Navbar extends Component<AcceptedProps, {}> {
       <div>
         {/* <Router> */}
         <AppBar>
-          <Toolbar>
+          <Toolbar className="navbar">
             <IconButton edge="start" color="inherit" aria-label="menu">
               <Link className="nav_links" to="/">
                 <MovieIcon />
               </Link>
             </IconButton>
-            <Typography variant="h4" color="inherit">
-              <Link className="nav_links" to="/">
-                ScreenTime
-              </Link>
-            </Typography>
+            <Button color="inherit">
+              <Typography variant="h3" color="inherit">
+                <Link className="nav_links" to="/">
+                  ScreenTime
+                </Link>
+              </Typography>
+            </Button>
             <ul>
               <li>
                 <Button color="inherit">
-                  <Link className="nav_links" to="/movies">
-                    Movies
-                  </Link>
+                  <Typography variant="h6" color="inherit">
+                    <Link className="nav_links" to="/movies">
+                      Movies
+                    </Link>
+                  </Typography>
                 </Button>
               </li>
               <li>
                 <Button color="inherit">
-                  <Link className="nav_links" to="/tv">
-                    TV Shows
-                  </Link>
+                  <Typography variant="h6" color="inherit">
+                    <Link className="nav_links" to="/tv">
+                      TV Shows
+                    </Link>
+                  </Typography>
                 </Button>
               </li>
               <li>
                 <Button color="inherit" onClick={this.props.clearToken}>
-                  <Link className="nav_links" to="">
-                    Logout
-                  </Link>
+                  <Typography variant="h6" color="inherit">
+                    <Link className="nav_links" to="">
+                      Logout
+                    </Link>
+                  </Typography>
                 </Button>
               </li>
             </ul>
