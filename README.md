@@ -1,3 +1,18 @@
+## ScreenTime Client README
+
+### Description
+
+[Deployed link](https://screentime-client.herokuapp.com/)
+
+ScreenTime is an app where you can log reviews of any movies or TV shows that you have watched. In v1, after creating an account you enter basic information about the movie or show (title, among other info) and can add your own rating from 0-10 and a review. Once logged, you can go back to amend your score or review as desired, but not the basic info about the piece of media. Should you wish, you can also delete your reviews.
+
+### Features
+
+1. Creating an account to store your reviews
+2. Log reviews by entering basic info about movie (title, director, year released are required; runtime optional) or TV show (title, network required; number of seasons optional) and add your score and review.
+3. Once logged, you can edit or delete your review/score. In updating, the basic info is already locked in.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

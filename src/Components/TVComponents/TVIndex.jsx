@@ -116,7 +116,7 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
     e.preventDefault();
     console.log(this.state.title);
 
-    fetch(`https://${APIURL}/tv/review`, {
+    fetch(`${APIURL}/tv/review`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -214,6 +214,7 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
                       style={{ margin: 8 }}
                       id="review"
                       name="review"
+                      helperText="255 Character Limit"
                       multiline
                       fullWidth
                       value={this.state.review}

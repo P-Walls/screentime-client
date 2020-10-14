@@ -56,7 +56,7 @@ class TVEdit extends Component<AcceptedProps, TVEditState> {
 
   tvUpdate = (e: React.FormEvent<any>) => {
     e.preventDefault();
-    fetch(`https://${APIURL}/tv/review/${this.props.tvToUpdate.id}`, {
+    fetch(`${APIURL}/tv/review/${this.props.tvToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
         userScore: this.state.editUserScore,

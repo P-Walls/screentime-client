@@ -24,7 +24,7 @@ class MovieEdit extends Component {
 
   movieUpdate = (e) => {
     e.preventDefault();
-    fetch(`https://${APIURL}/movie/review/${this.props.movieToUpdate.id}`, {
+    fetch(`${APIURL}/movie/review/${this.props.movieToUpdate.id}`, {
       method: "PUT",
       body: JSON.stringify({
         //watchlist: this.state.editWatchlist,
