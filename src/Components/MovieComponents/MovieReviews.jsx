@@ -29,11 +29,6 @@ class MovieReviews extends Component {
     };
   }
 
-  // componentDidUpdate() {
-  //   console.log(this.state.deleteId);
-
-  // }
-
   getDeleteId(e, id) {
     e.preventDefault();
     this.setState({ deleteId: id });
@@ -42,7 +37,7 @@ class MovieReviews extends Component {
   }
 
   deleteMedia(id) {
-    if (id !== "") {
+    if (id !== null) {
       let url = `${APIURL}/movie/review/${id}`;
       fetch(url, {
         method: "DELETE",
@@ -74,7 +69,6 @@ class MovieReviews extends Component {
           <TableCell>{movies.runtime}</TableCell>
           <TableCell>{movies.userScore}</TableCell>
           <TableCell>{movies.review}</TableCell>
-          {/* <TableCell>{movies.id}</TableCell> */}
           <TableCell>
             <ButtonGroup>
               <Button
@@ -125,6 +119,8 @@ class MovieReviews extends Component {
         </TableContainer>
         {this.props.updateActive ? (
           <MovieEdit
+            userScore={this.props.userScore}
+            review={this.props.review}
             updateOn={this.props.updateOn}
             movieToUpdate={this.props.movieToUpdate}
             updateOff={this.props.updateOff}

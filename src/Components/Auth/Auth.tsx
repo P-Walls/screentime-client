@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import APIURL from "../../Helpers/environment";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import Admin from "../Admin/Admin";
+//import Admin from "../Admin/Admin";
 
 type AcceptedProps = {
   updateToken: (newToken: string) => void;

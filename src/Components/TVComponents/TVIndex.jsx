@@ -58,12 +58,12 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
       userScore: 0,
       review: "",
       tvToUpdate: {
-        id: 0,
-        title: "",
-        network: "",
-        seasons: 0,
-        userScore: 0,
-        review: "",
+        // id: 0,
+        // title: "",
+        // network: "",
+        // seasons: 0,
+        // userScore: 0,
+        // review: "",
       },
       updateActive: false,
     };
@@ -90,7 +90,7 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
     this.setState({ updateActive: false });
   };
 
-  fetchTVReviews = (token /*: string*/) => { // Commenting so that I'm able to redeploy
+  fetchTVReviews = (token /*: string*/) => {
     fetch(`${APIURL}/tv/`, {
       method: "GET",
       headers: new Headers({

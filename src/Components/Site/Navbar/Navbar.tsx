@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-//import Test from "../../Search/Test";
-//import Auth from "../../Auth/Auth";
-//import UserHome from "../../User Components/UserHome";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -11,9 +8,19 @@ import IconButton from "@material-ui/core/IconButton";
 import MovieIcon from "@material-ui/icons/Movie";
 import "./Navbar.css";
 
-class Navbar extends Component {
+type AcceptedProps = {
+  sessionToken: string;
+  clearToken: () => void;
+  role: boolean;
+}
+
+class Navbar extends Component<AcceptedProps, {}> {
+  constructor(props: AcceptedProps){
+    super(props)
+  }
+
   componentDidUpdate() {
-    (this.props.sessionToken !== "") | undefined
+    (this.props.sessionToken)
       ? console.log(this.props.sessionToken)
       : console.log("No Session Token");
   }
