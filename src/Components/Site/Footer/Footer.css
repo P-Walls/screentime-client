@@ -1,12 +1,7 @@
-/* .footer {
-  width: 100%;
-  background-color: gray;
-  color: white;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+#icon:hover {
+  opacity: 50%;
 }
 
-.icon {
-  color: white;
-}  */
+#icon-two:hover {
+  opacity: 50%;
+}
