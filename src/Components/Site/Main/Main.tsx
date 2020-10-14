@@ -13,12 +13,13 @@ import {
 } from "react-router-dom";
 import Admin from "../../Admin/Admin";
 
-// type StateTypes = {
-//   sessionToken: string;
-// };
+type MainState = {
+  sessionToken: string;
+  role: boolean;
+};
 
-class Main extends Component /*<{}, StateTypes>*/ {
-  constructor(props /*: {}*/) {
+class Main extends Component<{}, MainState> {
+  constructor(props: {}) {
     super(props);
     this.state = {
       sessionToken: "",
@@ -26,20 +27,14 @@ class Main extends Component /*<{}, StateTypes>*/ {
     };
   }
 
-  componentWillMount() {
-    if (localStorage.getItem("token")) {
-      this.setState({ sessionToken: localStorage.getItem("token") });
-    }
-  }
-
-  updateToken = (newToken /*: string*/) => {
+  updateToken = (newToken: string) => {
     localStorage.setItem("token", newToken);
     this.setState({
       sessionToken: newToken,
     });
   };
 
-  updateRole = (newRole /*: string*/) => {
+  updateRole = (newRole: boolean) => {
     this.setState({
       role: newRole,
     });
@@ -88,7 +83,6 @@ class Main extends Component /*<{}, StateTypes>*/ {
         <Router>
           <Navbar
             sessionToken={this.state.sessionToken}
-            updateToken={this.updateToken}
             clearToken={this.clearToken}
             role={this.state.role}
           />
@@ -100,6 +94,8 @@ class Main extends Component /*<{}, StateTypes>*/ {
                 ) : (
                   <Auth
                     updateRole={this.updateRole}
+                    role={this.state.role}
+                    sessionToken={this.state.sessionToken}
                     updateToken={this.updateToken}
                   />
                 )}

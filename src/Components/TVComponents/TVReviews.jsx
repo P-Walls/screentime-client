@@ -10,6 +10,9 @@ import TableRow from "@material-ui/core/TableRow";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import APIURL from "../../Helpers/environment";
+import PropTypes from "prop-types";
+import Container from "@material-ui/core/Container";
+import { withStyles } from "@material-ui/core/styles";
 
 // type TVReviewsState = {
 //   deleteId: number;
@@ -49,6 +52,13 @@ import APIURL from "../../Helpers/environment";
 //   updateActive: boolean;
 // };
 
+const styles = {
+  root: {
+    maxHeight: 150,
+    width: "100%"
+  }
+}
+
 class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
   constructor(props/*: AcceptedProps*/) {
     super(props);
@@ -56,11 +66,6 @@ class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
       deleteId: 0,
     };
   }
-
-  // componentDidUpdate() {
-  //   console.log(this.state.deleteId);
-
-  // }
 
   getDeleteId(e/*: React.FormEvent<any>*/, id/*: number*/) {
     e.preventDefault();
@@ -136,13 +141,15 @@ class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
   };
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div>
         <TableContainer className="reviews-table" component={Paper}>
-          <div>
+          <Container>
             <h3>TV Reviews</h3>
-          </div>
-          <Table aria-label="sticky table">
+          </Container>
+          <Table stickyHeader aria-label="sticky table" className={classes.root}>
             <TableHead>
               <TableRow>
                 <TableCell></TableCell>
@@ -175,4 +182,8 @@ class TVReviews extends Component/*<AcceptedProps, TVReviewsState>*/ {
   }
 }
 
-export default TVReviews;
+Table.propTypes = {
+  classes: PropTypes.object,
+};
+
+export default withStyles(styles)(TVReviews);

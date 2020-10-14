@@ -1,2 +1,12 @@
-/* footer {
-  /* //text-align: center; }*/
+/* .footer {
+  width: 100%;
+  background-color: gray;
+  color: white;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.icon {
+  color: white;
+}  */
