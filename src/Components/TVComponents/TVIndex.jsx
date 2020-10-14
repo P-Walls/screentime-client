@@ -91,7 +91,7 @@ class TVIndex extends Component /*<AcceptedProps, TVState>*/ {
   };
 
   fetchTVReviews = (token /*: string*/) => { // Commenting so that I'm able to redeploy
-    fetch(`https://${APIURL}/tv/`, {
+    fetch(`${APIURL}/tv/`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
