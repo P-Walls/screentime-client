@@ -73,7 +73,6 @@ class MovieIndex extends Component {
         title: this.state.title,
         year: this.state.year,
         director: this.state.director,
-        //watchlist: this.state.watchlist,
         runtime: this.state.runtime,
         userScore: this.state.userScore,
         review: this.state.review,

@@ -9,30 +9,54 @@ import TableRow from "@material-ui/core/TableRow";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import APIURL from "../../Helpers/environment";
-import { withStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
+//import { withStyles } from "@material-ui/core/styles";
+//import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import "./Admin.css";
 
-const styles = {};
+//const styles = {};
 
-class Admin extends Component {
-  constructor(props) {
+type AcceptedProps = {
+  sessionToken: string;
+  role: boolean;
+  // classes: {
+  //   root: string;
+  // };
+};
+
+type AdminState = {
+  movieReviews: {
+    id: number;
+    title: string;
+    director: string;
+    year: string;
+    runtime: number;
+    userScore: number;
+    review: string;
+  }[];
+  tvReviews: {
+    id: number;
+    title: string;
+    network: string;
+    seasons: any;
+    userScore: any;
+    review: string;
+  }[];
+  deleteId: Number;
+};
+
+class Admin extends Component<AcceptedProps, AdminState> {
+  constructor(props: AcceptedProps) {
     super(props);
     this.state = {
       movieReviews: [],
       tvReviews: [],
       deleteId: 0,
-      value: 0,
     };
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  fetchMovieReviews = (token) => {
+  fetchMovieReviews = (token: string) => {
     fetch(`${APIURL}/movie/all`, {
       method: "GET",
       headers: new Headers({
@@ -49,7 +73,7 @@ class Admin extends Component {
       });
   };
 
-  fetchTVReviews = (token) => {
+  fetchTVReviews = (token: string) => {
     fetch(`${APIURL}/tv/all`, {
       method: "GET",
       headers: new Headers({
@@ -75,7 +99,7 @@ class Admin extends Component {
     console.log("test");
   }
 
-  getTVDeleteId(e, id) {
+  getTVDeleteId(e: React.FormEvent<any>, id: number) {
     e.preventDefault();
     this.setState({ deleteId: id });
     this.deleteTV(id);
@@ -83,7 +107,7 @@ class Admin extends Component {
     this.fetchTVReviews(this.props.sessionToken);
   }
 
-  getMovieDeleteId(e, id) {
+  getMovieDeleteId(e: React.FormEvent<any>, id: number) {
     e.preventDefault();
     this.setState({ deleteId: id });
     this.deleteMovie(id);
@@ -91,8 +115,8 @@ class Admin extends Component {
     this.fetchTVReviews(this.props.sessionToken);
   }
 
-  deleteMovie(id) {
-    if (id !== "") {
+  deleteMovie(id: number) {
+    if (id !== null) {
       let url = `${APIURL}/movie/review/${id}`;
       fetch(url, {
         method: "DELETE",
@@ -111,7 +135,7 @@ class Admin extends Component {
     }
   }
 
-  deleteTV(id /*: number*/) {
+  deleteTV(id: number) {
     if (id !== null) {
       let url = `${APIURL}/tv/review/${id}`;
       fetch(url, {
@@ -186,8 +210,7 @@ class Admin extends Component {
   };
 
   render() {
-    const { value } = this.state;
-    const { classes } = this.props;
+    //const { classes } = this.props;
 
     return (
       <div className="admin-index">
@@ -201,8 +224,7 @@ class Admin extends Component {
               <Table
                 stickyHeader
                 aria-label="sticky table"
-                className={classes.root}
-                value={value}
+                //className={classes.root}
               >
                 <TableHead>
                   <TableRow>
@@ -246,8 +268,8 @@ class Admin extends Component {
   }
 }
 
-Admin.propTypes = {
-  class: PropTypes.object,
-};
+// Admin.propTypes = {
+//   class: PropTypes.object,
+// };
 
-export default withStyles(styles)(Admin);
+export default /*withStyles(styles)(*/Admin/*)*/;

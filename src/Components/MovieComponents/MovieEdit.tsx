@@ -8,11 +8,33 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-class MovieEdit extends Component {
-  constructor(props) {
+type AcceptedProps = {
+  userScore: number | string;
+  review: string;
+  updateOn: () => void;
+  updateOff: () => void;
+  updateActive: boolean;
+  movieToUpdate: {
+    id: number;
+    title: string;
+    network: string;
+    seasons: number;
+    userScore: number | string;
+    review: string;
+  };
+  sessionToken: string;
+  fetchMovieReviews: (token: string) => void;
+};
+
+type MovieEditState = {
+  editUserScore: number | string;
+  editReview: string;
+};
+
+class MovieEdit extends Component<AcceptedProps, MovieEditState> {
+  constructor(props: AcceptedProps) {
     super(props);
     this.state = {
-      //editWatchlist: this.props.movieToUpdate.watchlist,
       editUserScore: this.props.movieToUpdate.userScore,
       editReview: this.props.movieToUpdate.review,
     };
@@ -22,7 +44,7 @@ class MovieEdit extends Component {
     this.props.updateOff();
   };
 
-  movieUpdate = (e) => {
+  movieUpdate = (e: React.FormEvent<any>) => {
     e.preventDefault();
     fetch(`${APIURL}/movie/review/${this.props.movieToUpdate.id}`, {
       method: "PUT",
