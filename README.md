@@ -12,6 +12,11 @@ ScreenTime is an app where you can log reviews of any movies or TV shows that yo
 2. Log reviews by entering basic info about movie (title, director, year released are required; runtime optional) or TV show (title, network required; number of seasons optional) and add your score and review.
 3. Once logged, you can edit or delete your review/score. In updating, the basic info is already locked in.
 
+### V2 Goals
+
+1. Integrate 3rd-party API to allow movie/tv info (including poster images) to populate from API, instead of user-generated.
+2. Allow users to see other user's reviews for each movie/tv show, with everything searchable.
+3. Create user profile page where users can edit information and delete their profiles.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
