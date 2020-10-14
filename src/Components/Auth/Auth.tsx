@@ -39,7 +39,9 @@ class Auth extends Component<AcceptedProps, AuthState> {
   }
 
   title = () => {
-    return this.state.login === true ? "Login To Start Reviewing!" : "Create An Account";
+    return this.state.login === true
+      ? "Login To Start Reviewing!"
+      : "Create An Account";
   };
 
   label = () => {
@@ -108,8 +110,8 @@ class Auth extends Component<AcceptedProps, AuthState> {
       };
 
       let url = this.state.login
-        ? `https://${APIURL}/user/login`
-        : `https://${APIURL}/user/register`;
+        ? `${APIURL}/user/login`
+        : `${APIURL}/user/register`;
 
       fetch(url, {
         method: "POST",
@@ -122,7 +124,7 @@ class Auth extends Component<AcceptedProps, AuthState> {
         .then((data) => {
           this.props.updateToken(data.sessionToken);
           this.props.updateRole(data.user.role);
-          console.log(data.user.role)
+          console.log(data.user.role);
           console.log(data);
         })
         .catch((err) => console.log(err));
@@ -141,11 +143,13 @@ class Auth extends Component<AcceptedProps, AuthState> {
     }
   };
 
-  authViews(){
+  authViews() {
     if (this.props.role === true) {
-      return(<div>
-        <Admin/>
-      </div> )
+      return (
+        <div>
+          <Admin />
+        </div>
+      );
     }
   }
 
@@ -164,7 +168,8 @@ class Auth extends Component<AcceptedProps, AuthState> {
                 <label htmlFor="email">Email:</label>
                 <br />
                 <TextField
-                  type="text"
+                  required
+                  type="email"
                   onChange={(e) => {
                     this.setState({ email: e.target.value });
                     if (this.state.email === "pwalls@admin.com") {
@@ -176,6 +181,7 @@ class Auth extends Component<AcceptedProps, AuthState> {
                 <label htmlFor="password">Password:</label>
                 <br />
                 <TextField
+                  required
                   type="password"
                   onChange={(e) => this.setState({ password: e.target.value })}
                 />

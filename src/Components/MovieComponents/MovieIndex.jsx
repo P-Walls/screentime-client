@@ -38,7 +38,7 @@ class MovieIndex extends Component {
   };
 
   fetchMovieReviews = (token) => {
-    fetch(`https://${APIURL}/movie/`, {
+    fetch(`${APIURL}/movie/`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ class MovieIndex extends Component {
     e.preventDefault();
     console.log(this.state.title);
 
-    fetch(`https://${APIURL}/movie/review`, {
+    fetch(`${APIURL}/movie/review`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -82,12 +82,10 @@ class MovieIndex extends Component {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        //Come back to clearing the form
         this.setState({
           title: "",
           year: "",
           director: "",
-          //watchlist: false,
           runtime: 0,
           userScore: 0,
           review: "",
@@ -149,9 +147,6 @@ class MovieIndex extends Component {
                       type="number"
                       style={{ margin: 8 }}
                       value={this.state.runtime}
-                      // endAdornment={
-                      //   <InputAdornment position="end">Min</InputAdornment>
-                      // }
                       onChange={(e) =>
                         this.setState({ runtime: e.target.value })
                       }
@@ -180,6 +175,7 @@ class MovieIndex extends Component {
                       style={{ margin: 8 }}
                       id="review"
                       name="review"
+                      helperText="255 Character Limit"
                       multiline
                       fullWidth
                       value={this.state.review}
